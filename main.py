@@ -107,19 +107,47 @@ def main():
                 break
 
         keys = pygame.key.get_pressed()
+        # Move Left
         if keys[pygame.K_LEFT] and player.x - PLAYER_VEL >= 0:
             player.x -= PLAYER_VEL
             facing_left = False
         
+        # Move Right
         elif keys[pygame.K_RIGHT] and player.x + PLAYER_VEL + PLAYER_WIDTH <= WIDTH:
             player.x += PLAYER_VEL
             facing_left = True
 
+        # Move Up
         elif keys[pygame.K_UP] and player.y - PLAYER_VEL >= 0:
             player.y -= PLAYER_VEL
 
+        # Move Down
         elif keys[pygame.K_DOWN] and player.y + PLAYER_VEL + PLAYER_HEIGHT <= HEIGHT:
             player.y += PLAYER_VEL
+
+        # Move to Top Left
+        if keys[pygame.K_LEFT] and keys[pygame.K_UP] and player.y - PLAYER_VEL >= 0 and player.x - PLAYER_VEL >= 0:
+            player.x -= PLAYER_VEL / 2
+            player.y -= PLAYER_VEL
+            facing_left = False
+
+        # Move to Top Right
+        if keys[pygame.K_RIGHT] and keys[pygame.K_UP] and player.y - PLAYER_VEL >= 0 and player.x + PLAYER_VEL + PLAYER_WIDTH <= WIDTH:
+            player.x += PLAYER_VEL / 2
+            player.y -= PLAYER_VEL
+            facing_left = True
+
+        # Move to Down Left
+        if keys[pygame.K_LEFT] and keys[pygame.K_DOWN] and player.y + PLAYER_VEL + PLAYER_HEIGHT <= HEIGHT and player.x - PLAYER_VEL >= 0:
+            player.x -= PLAYER_VEL / 2
+            player.y += PLAYER_VEL
+            facing_left = False
+
+        # Move to Down Right
+        if keys[pygame.K_RIGHT] and keys[pygame.K_DOWN] and player.y + PLAYER_VEL + PLAYER_HEIGHT <= HEIGHT and player.x + PLAYER_VEL + PLAYER_WIDTH <= WIDTH:
+            player.x += PLAYER_VEL / 2
+            player.y += PLAYER_VEL
+            facing_left = True
 
         backEnd(player, elapsed_time, facing_left)
     
